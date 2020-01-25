@@ -7,12 +7,28 @@ console.log('Before');
 //   })
 // });
 
+// Promised based approach
+//  getUser(1)
+//   .then(user => getRepositories(user.gitHubUsername))
+//   .then(repoRes => getCommits(repoRes[0]))
+//   .then(commits => console.log('Commits', commits))
 
- getUser(1)
-  .then(user => getRepositories(user.gitHubUsername))
-  .then(repoRes => getCommits(repoRes[0]))
-  .then(commits => console.log('Commits', commits))
 
+// async await approach 
+async function display() {
+try {
+ 
+    const user = await getUser(1)
+    const repos = await getRepositories(user.gitHubUsername)
+    const commits = await getCommits(repos[0])
+    console.log(commits)
+    
+} catch (error) {
+  console.log('Error', error.message)
+}
+}
+
+display();
 console.log('After');
 
 function getUser(id) {
@@ -20,6 +36,7 @@ function getUser(id) {
     setTimeout(() => {
       console.log('Reading a user from a database...');
       resolve({ id: id, gitHubUsername: 'mosh' });
+      // reject('rejected')
     }, 2000);
   })
  
