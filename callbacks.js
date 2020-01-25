@@ -1,7 +1,7 @@
 const getUser = (id, callback) =>{
     setTimeout(() =>{
         console.log('Get the user data from db')
-        callback({id:id, githubUser:'Guru'})
+        callback({id:id, githubUser:'Guru`'})
     }, 2000)
 }
 
@@ -19,18 +19,21 @@ const getRepoComments = (repo, callback) =>{
     },2000)
 }
 
+const displayComments = (comments) =>{
+    console.log(comments)
+}
 
+const displayUserRepos = (repos) =>{
+    getRepoComments('Gurus repo', displayComments)
+}
+
+const displayUsers = (user) =>{
+    getUserRepo(user, displayUserRepos)
+}
 
 console.log('Before');
 
-getUser(1, (user) =>{
-    getUserRepo(user, (repos) =>{
-        console.log('user repos', repos)
-    })
-        getRepoComments('Gurus repo', (comments) =>{
-            console.log('comments', comments)
-        })
-})
+getUser(1, displayUsers)
 
 console.log('after');
 
